@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | DenIA Inmobiliaria</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div id="toast-container"></div>
+
+    <button class="floating-menu-btn" id="menu-toggle">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+
+    <div class="dashboard-container">
+        
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-wrapper">
+                    <img src="assets/img/WhatsApp Image 2025-12-09 at 10.33.34.jpeg" alt="DenIA" class="logo-img-main">
+                </div>
+            </div>
+
+            <div class="plan-status-card">
+                <div class="status-header">
+                    <span class="status-label">Plan Actual</span>
+                    <span id="user-plan-badge" class="plan-badge">Cargando...</span>
+                </div>
+                
+                <div id="addon-status" class="addon-info" style="display:none;">
+                    <span class="addon-check">📸 Pack Fotos Activo</span>
+                </div>
+
+                <div class="usage-container">
+                    <div class="usage-text">
+                        <span>Propiedades</span>
+                        <span id="usage-limit">0 / -</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-val" id="usage-progress" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-menu">
+                <div class="menu-label">Principal</div>
+                <a href="#" class="menu-item active" data-target="panel-config" id="btn-config">
+                    <span class="icon">🤖</span> Configurar IA
+                </a>
+                <a href="#" class="menu-item" data-target="panel-metrics" id="btn-metrics">
+                    <span class="icon">📊</span> Métricas y Leads
+                </a>
+
+                <div class="menu-label">Operaciones</div>
+                <a href="#" class="menu-item locked" data-target="panel-properties" id="btn-properties">
+                    <span class="icon">🏠</span> Mis Propiedades <span class="lock-icon">🔒</span>
+                </a>
+                <a href="#" class="menu-item locked" data-target="panel-catalog" id="btn-catalog">
+                    <span class="icon">📸</span> Catálogo Visual <span class="lock-icon">🔒</span>
+                </a>
+                <a href="#" class="menu-item locked" data-target="panel-calendar" id="btn-calendar">
+                    <span class="icon">📅</span> Agenda Visitas <span class="lock-icon">🔒</span>
+                </a>
+
+                <div class="menu-label">Cuenta</div>
+                <a href="#" class="menu-item" data-target="panel-billing">
+                    <span class="icon">💳</span> Suscripción
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn">
+                    <span>🚪</span> Cerrar Sesión
+                </a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="dash-header">
+                <div class="header-text">
+                    <h1 id="section-title"></h1>
+                    <p><span id="user-display-name" class="highlight-text"></span>.</p>
+                </div>
+            </header>
+
+            <div id="panel-config" class="panel-section active">
+                <form id="bot-config-form" class="dash-grid">
+                    
+                    <div class="dash-card">
+                        <div class="card-header"><h3>🏢 Identidad Inmobiliaria</h3></div>
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Nombre de Fantasía</label>
+                                <input type="text" id="biz-name" placeholder="Ej: Propiedades Norte">
+                            </div>
+                            <div class="input-group">
+                                <label>Zonas de Cobertura</label>
+                                <input type="text" id="biz-zone" placeholder="Ej: Palermo, Belgrano, Nuñez">
+                            </div>
+                            <div class="input-group">
+                                <label>Sitio Web / Catálogo URL</label>
+                                <input type="text" id="biz-web" placeholder="www.tuinmobiliaria.com">
+                            </div>
+                            <div class="input-group">
+                                <label>Teléfono Guardia (Urgencias)</label>
+                                <input type="text" id="biz-phone" placeholder="+54 9 11...">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-card">
+                        <div class="card-header"><h3>🧠 Cerebro del Agente (Personalidad)</h3></div>
+                        
+                        <div class="form-grid">
+                            <div class="input-group">
+                                <label>Tono de Voz</label>
+                                <select id="biz-tone" class="custom-select">
+                                    <option value="formal">Formal y Corporativo</option>
+                                    <option value="cercano" selected>Cercano y Empático</option>
+                                    <option value="vendedor">Enérgico / Vendedor</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Perfil de Cliente Ideal</label>
+                                <select id="biz-target" class="custom-select">
+                                    <option value="familias">Familias (Compra/Alquiler)</option>
+                                    <option value="inversores">Inversores (Rentabilidad)</option>
+                                    <option value="lujo">Mercado de Lujo</option>
+                                    <option value="estudiantes">Estudiantes / Temporales</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group full-width">
+                                <label>Requisitos Excluyentes (Filtro)</label>
+                                <p class="hint-text">¿Qué debe tener el cliente sí o sí para avanzar?</p>
+                                <input type="text" id="biz-reqs" placeholder="Ej: Solo garantía propietaria CABA, no mascotas en deptos chicos.">
+                            </div>
+
+                            <div class="input-group full-width">
+                                <label>Manual de Estilo y Negociación (Prompt del Sistema)</label>
+                                <p class="hint-text">Describe detalladamente cómo debe responder la IA. Ej: "Saluda con 'Hola vecino', ofrece visitas solo por la tarde, si preguntan por precio en pesos aclarar que es dólar billete".</p>
+                                <textarea id="biz-prompt" rows="8" placeholder="Instrucciones detalladas para el Agente..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dash-card" id="catalog-card">
+                        <div class="card-header">
+                            <h3 id="upload-title">Base de Conocimiento</h3>
+                            <span class="status-pill" id="catalog-status">Sin archivos</span>
+                        </div>
+                        
+                        <div class="upload-area" id="drop-zone">
+                            <span class="upload-icon">📂</span>
+                            <p>Arrastra archivos PDF (Fichas) o Excel (Precios)</p>
+                            
+                            <div class="file-types-grid">
+                                <div class="type-badge"><span>📊 Excel / CSV</span></div>
+                                <div class="type-badge"><span>📕 PDF / Word</span></div>
+                            </div>
+
+                            <input type="file" id="file-input" hidden multiple accept=".pdf,.csv,.xlsx,.xls,.doc,.docx">
+                            <button type="button" class="btn-secondary btn-sm" onclick="document.getElementById('file-input').click()">Seleccionar Archivos</button>
+                        </div>
+                        <div id="file-list-container"></div>
+                    </div>
+                        
+                    <div class="form-footer full-width">
+                        <button type="submit" class="btn-primary btn-lg">Guardar y Entrenar Agente</button>
+                    </div>
+                </form>
+            </div>
+
+            <div id="panel-metrics" class="panel-section hidden-panel">
+                <div class="dash-card">
+                    <div class="card-header"><h3>Estadísticas en Tiempo Real</h3></div>
+                    <div style="padding: 40px; text-align: center; color: #666;">
+                        <span style="font-size: 3rem;">📊</span>
+                        <p>Recopilando datos de conversaciones...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="panel-properties" class="panel-section hidden-panel"><h2 style="color:white;">Gestión de Propiedades</h2></div>
+            <div id="panel-catalog" class="panel-section hidden-panel"><h2 style="color:white;">Catálogo Visual</h2></div>
+            <div id="panel-calendar" class="panel-section hidden-panel"><h2 style="color:white;">Agenda de Visitas</h2></div>
+            <div id="panel-billing" class="panel-section hidden-panel"><h2 style="color:white;">Suscripción</h2></div>
+
+        </main>
+    </div>
+
+    <script src="/js/dashboard.js"></script>
+</body>
+</html>
